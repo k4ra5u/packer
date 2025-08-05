@@ -272,11 +272,11 @@ static void habort(char* msg){
 	kAFL_hypercall(HYPERCALL_KAFL_USER_ABORT, (uintptr_t)msg);
 }
 
-#define NYX_HOST_MAGIC  0x4878794e
-#define NYX_AGENT_MAGIC 0x4178794e
+#define NYX_HOST_MAGIC  0x4878799e
+#define NYX_AGENT_MAGIC 0x4178799e
 
-#define NYX_HOST_VERSION 2 
-#define NYX_AGENT_VERSION 1
+#define NYX_HOST_VERSION 28 
+#define NYX_AGENT_VERSION 18
 
 typedef struct host_config_s{
   uint32_t host_magic;
@@ -296,6 +296,8 @@ typedef struct agent_config_s{
 	uint8_t agent_ijon_tracing;
 	uint8_t agent_non_reload_mode;
 	uint64_t trace_buffer_vaddr;
+	uint64_t quic_response_vaddr;
+	uint64_t execution_path_vaddr;
 	uint64_t ijon_trace_buffer_vaddr;
 	uint32_t coverage_bitmap_size;
 	uint32_t input_buffer_size;		// TODO: remove this later

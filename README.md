@@ -21,3 +21,16 @@ All busybox executables and the Linux kernel image (located in `./linux_initramf
 Proudly provided by: 
 * [Sergej Schumilo](http://schumilo.de) - sergej@schumilo.de / [@ms_s3c](https://twitter.com/ms_s3c)
 * [Cornelius Aschermann](https://hexgolems.com) - cornelius@hexgolems.com / [@is_eqv](https://twitter.com/is_eqv)
+
+## Setup
+
+```shell
+mkdir /tmp/packer
+python3 "./packer/nyx_packer.py" \
+    ../../fuzzing_targets/dist/apache.tar.gz \
+    /tmp/packer \
+    afl \
+    instrumentation \
+    --purge
+python3 "./packer/nyx_config_gen.py" /tmp/packer Kernel
+```

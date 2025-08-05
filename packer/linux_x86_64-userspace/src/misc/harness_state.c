@@ -6,7 +6,7 @@
 #include "netfuzz/syscalls.h"
 #include "nyx.h"
 
-//#define DEBUG_HARNESS_STATE
+#define DEBUG_HARNESS_STATE
 
 static bool harness_state_ready = false;
 

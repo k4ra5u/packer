@@ -7,11 +7,15 @@ else
 	EXTRA=""
 fi
 
+NO_PT_NYX="YES"
+LEGACY_MODE="ON"
+
 if [ "$LEGACY_MODE" = "ON" ]
 then
   # old kAFL mode shared library
   gcc -shared -O0 -m64 -Werror -DLEGACY_MODE -fPIC src/ld_preload_fuzz.c src/misc/crash_handler.c src/misc/harness_state.c  src/netfuzz/syscalls.c -I../../ -o bin64/ld_preload_fuzz_legacy.so -ldl -Isrc
   gcc -shared -O0 -m64 -Werror -DLEGACY_MODE -DNO_PT_NYX -fPIC src/ld_preload_fuzz.c src/misc/crash_handler.c src/misc/harness_state.c  src/netfuzz/syscalls.c -I../../ -o bin64/ld_preload_fuzz_legacy_no_pt.so -ldl -Isrc
+  gcc -O0 -m64 -Werror -DLEGACY_MODE -DNO_PT_NYX -fPIC src/harness.c src/misc/harness_state.c src/netfuzz/syscalls.c -I../../ -o bin64/harness -ldl -Isrc
 else
   # latest and greatest nyx shared library
 

@@ -606,7 +606,7 @@ void capabilites_configuration(bool timeout_detection, bool agent_tracing, bool 
 void dump_mappings(void){
     char filename[256];
 
-    char* buffer = malloc(0x1000);
+    char* buffer = malloc(0x100000);
 
     kafl_dump_file_t file_obj = {0};
 
@@ -627,7 +627,7 @@ void dump_mappings(void){
   	FILE* f = fopen(filename, "r");
     uint32_t len = 0;
     while(1){
-  	    len = fread(buffer, 1, 0x1000, f);
+  	    len = fread(buffer, 1, 0x100000, f);
         if(!len){
             break;
         }
@@ -854,8 +854,8 @@ void nyx_init_start(void){
 
     mprotect(payload_buffer, input_buffer_size, PROT_EXEC);
 
-    kAFL_ranges* range_buffer = mmap((void*)NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    memset(range_buffer, 0xff, 0x1000);
+    kAFL_ranges* range_buffer = mmap((void*)NULL, 0x100000, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    memset(range_buffer, 0xff, 0x100000);
     kAFL_hypercall(HYPERCALL_KAFL_USER_RANGE_ADVISE, (uintptr_t)range_buffer);
 
     for(i = 0; i < 4; i++){
